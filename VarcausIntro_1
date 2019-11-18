@@ -1,0 +1,53 @@
+import pygame
+import random
+import math
+
+CZARNY = (0,0,170)
+GREEN = (119,119,119)
+pygame.init()
+ekran = pygame.display.set_mode([600,600])
+
+dalej = True 
+
+licznik = pygame.time.Clock()
+
+font = pygame.font.SysFont("freesansbold",42)
+tekst_content = 'Hi everyone! Here is Caposta.  Greetings to all living\
+                fans of Commodore64 :). Special greetings to Gomez - the greatest\
+                bits&bytes inspiration back those days. Music: Caposta.'
+tekst  = font.render(tekst_content, True, GREEN)
+tekst_prost = tekst.get_rect()
+tekst_prost.centerx = ekran.get_rect().centerx
+tekst_prost.centery = ekran.get_rect().centery
+
+varcausLogo = pygame.image.load('VarcausLogo.png')
+kolor_kluczowy = varcausLogo.get_at((0,112))
+varcausLogo.set_colorkey(kolor_kluczowy)
+varcaus_prost = varcausLogo.get_rect()
+varcaus_prost.centerx = ekran.get_rect().centerx
+varcaus_prost.centery = ekran.get_rect().centery
+print (kolor_kluczowy)
+
+
+move= -1
+moveSin =1
+tekst_prost.x =600
+
+while True:
+  ekran.fill(CZARNY)
+  if tekst_prost.right<0:
+    tekst_prost.x =600
+  
+  tekst_prost.y = ekran.get_rect().centery + 45*(math.sin(moveSin/10)) +100
+  tekst_prost.x += move
+  ekran.blit(tekst,tekst_prost)
+  
+
+  ekran.blit(tekst,tekst_prost)
+  ekran.blit(varcausLogo,(100,200))
+  
+  licznik.tick(30)
+  
+  moveSin+=1
+  
+  pygame.display.update()
